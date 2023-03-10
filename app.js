@@ -1,20 +1,22 @@
-const Koa = require("koa");
-const cors = require("koa2-cors");
-const bodyParser = require("koa-bodyparser");
+const Koa = require('koa')
+const cors = require('koa2-cors')
+const bodyParser = require('koa-bodyparser')
+const { koaBody } = require('koa-body')
 
-const user = require("./routers/user");
-const member = require("./routers/member");
-const article = require("./routers/article");
+const registerRoute = require('./routes')
 
-const app = new Koa();
+const app = new Koa()
 
-app.use(cors());
-app.use(bodyParser());
+app.use(cors())
+app.use(bodyParser())
 
-app.use(user.routes()).use(user.allowedMethods());
-app.use(member.routes()).use(member.allowedMethods());
-app.use(article.routes()).use(article.allowedMethods());
+/**
+ * 注册路由
+ * @param {Koa} app koa实例对象
+ * @returns {void}
+ */
+registerRoute(app)
 
 app.listen(3000, () => {
-  console.log("running ...");
-});
+  console.log('running ...')
+})
