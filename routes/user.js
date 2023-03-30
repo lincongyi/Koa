@@ -1,4 +1,5 @@
 const Router = require('koa-router')
+const { successResponse } = require('./response')
 
 const router = new Router()
 
@@ -13,16 +14,14 @@ router.post('/login', async (ctx, next) => {
   }
   if (username === 'admin' && password === 'admin') {
     ctx.body = {
-      ...ctx.body,
+      ...successResponse,
       data: {
         token,
       },
-      status: 400,
-      msg: 'success',
     }
   } else {
     ctx.body = {
-      ...ctx.body,
+      ...successResponse,
       status: 401,
       msg: 'fail',
     }
