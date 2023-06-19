@@ -1,7 +1,7 @@
 const Koa = require('koa')
 const cors = require('koa2-cors')
 const path = require('path')
-const static = require('koa-static')
+const koaStatic = require('koa-static')
 const mount = require('koa-mount')
 const { koaBody } = require('koa-body')
 const { config, staticPath } = require('./utils')
@@ -28,7 +28,7 @@ const app = new Koa()
 /**
  * 配置路径
  */
-app.use(mount(staticPath, static(path.join(__dirname, staticPath))))
+app.use(mount(staticPath, koaStatic(path.join(__dirname, staticPath))))
 
 /**
  * 获取上一级目录
@@ -40,7 +40,6 @@ app.use(mount(staticPath, static(path.join(__dirname, staticPath))))
  * 模块 koa-body 是用于解析路由和请求体的参数
  * 所以，在注册路由前先使用 koa-body 中间件将无法解析之后的路由参数和请求体。
  */
-
 app.use(
   koaBody({
     // 支持文件格式
@@ -54,6 +53,12 @@ app.use(
     },
   })
 )
+
+/**
+ * 启动默认浏览器，打开地址
+ */
+// const process = require('child_process')
+// process.exec('start https://www.baidu.com')
 
 app.use(cors())
 

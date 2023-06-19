@@ -1,49 +1,33 @@
 const Router = require('koa-router')
+const Mock = require('mockjs')
 const { successResponse } = require('./response')
 
 const router = new Router()
 
-router.post('/member', async (ctx, next) => {
-  ctx.body = {
+// 该文件下的路由会以 member 作为前缀
+router.prefix('/member')
+
+router.post('/', async (ctx, next) => {
+  ctx.body = Mock.mock({
     ...successResponse,
     data: {
       page: 1,
       pageSize: 10,
       total: 3,
-      list: [
+      'list|1-10': [
         {
-          id: '001',
-          name: 'Zoe',
+          id: '@increment',
+          name: '@name',
           avatar: '',
-          level: 1,
-          articleAmount: 10,
-          followers: 100,
-          createDate: '2022-01-01',
-          remark: '用户备注信息...',
-        },
-        {
-          id: '002',
-          name: 'Ackerman',
-          avatar: '',
-          level: 10,
-          articleAmount: 4,
-          followers: 300,
-          createDate: '2022-05-05',
-          remark: '用户备注信息...',
-        },
-        {
-          id: '003',
-          name: 'Natalie',
-          avatar: '',
-          level: 20,
-          articleAmount: 300,
-          followers: 200,
-          createDate: '2022-12-12',
-          remark: '用户备注信息...',
+          level: '@integer( 1, 10 )',
+          articleAmount: '@natural( 0, 100 )',
+          followers: '@natural( 0, 100 )',
+          createDate: '@date',
+          remark: '@cparagraph( 1, 3 )',
         },
       ],
     },
-  }
+  })
 })
 
 module.exports = router

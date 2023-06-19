@@ -22,6 +22,7 @@
     "koa2-cors": "^2.0.6",
     "koa2-request": "^1.0.4",
     "mime-types": "^2.1.35",
+    "mockjs": "^1.1.0",
     "moment": "^2.29.4",
     "node-schedule": "^2.1.1",
     "node-uuid": "^1.4.8"

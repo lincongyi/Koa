@@ -53,7 +53,7 @@ router.post('/getImages', async (ctx, next) => {
 })
 
 /**
- * 上传图片
+ * 图片上传
  */
 router.post('/upload', async (ctx, next) => {
   const { files } = ctx.request
